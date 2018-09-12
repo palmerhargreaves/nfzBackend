@@ -53,7 +53,7 @@ $isActiveMenu = function($parent) {
                         <ul>
                             <li class="<?php echo $isActiveMenu('activity') ? "active" : ""; ?>"><a href="<?php echo Url::to(['/activity/list']); ?>">Все</a></li>
                             <li class="<?php echo $isActiveMenu('mandatory-activities') ? "active" : ""; ?>"><a href="<?php echo Url::to(['/mandatory-activities']); ?>">Обязательные</a></li>
-                            <!--<li class="<?php echo $isActiveMenu('activity-service') ? "active" : ""; ?>"><a href="<?php echo Url::to(['/activity-service']); ?>">Service Clinic</a></li>-->
+                            <li class="<?php echo $isActiveMenu('activity-service') ? "active" : ""; ?>"><a href="<?php echo Url::to(['/activity-service']); ?>">Service Clinic</a></li>
 
                         </ul>
                     </div>

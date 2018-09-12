@@ -429,5 +429,17 @@ use yii\widgets\Pjax;
             
         });
     });
+    
+    $(document).on("click", "#activity-extended-statistic", function(event) {
+        var element = $(event.currentTarget);
+        
+        $.post(element.data("url"), {
+            id: element.data("id"),
+            field: element.data("field"),
+            value: element.is(":checked") ? 1 : 0
+        }, function(result) {
+            result.success ? Materialize.toast("Данные успешно сохранены.", 2500) : Materialize.toast("Ошибка сохранения данных.", 2500);
+        });
+    });
 ',
     \yii\web\View::POS_READY);

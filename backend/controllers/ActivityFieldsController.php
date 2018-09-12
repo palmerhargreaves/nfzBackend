@@ -35,7 +35,18 @@ class ActivityFieldsController extends PageController
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'config-fields', 'config-calc-fields', 'save-data', 'save-calc-fields', 'delete-field', 'sort-fields', 'sort-sections'],
+                        'actions' => [
+                            'logout',
+                            'index',
+                            'config-fields',
+                            'config-calc-fields',
+                            'save-data',
+                            'save-section-data',
+                            'save-calc-fields',
+                            'delete-field',
+                            'delete-section',
+                            'sort-fields',
+                            'sort-sections'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -81,13 +92,20 @@ class ActivityFieldsController extends PageController
         ]);
 
         $model = new ActivityExtendedStatisticFields();
-        if ($model->load(\Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(\Yii::$app->request->post(), 'ActivityExtendedStatisticFields') && $model->save()) {
             \Yii::$app->session->setFlash('app', \Yii::t('app', 'Новое поле успешно добавлено.'));
 
             return $this->redirect(Url::to(['/activity-fields/config-fields', 'id' => $model->activity_id]));
         }
 
-        return $this->render('index', ['activity' => $this->getActivity(), 'model' => $model]);
+        $section_model = new ActivityExtendedStatisticSections();
+        if ($section_model->load(\Yii::$app->request->post(), 'ActivityExtendedStatisticSections') && $section_model->save()) {
+            \Yii::$app->session->setFlash('app', \Yii::t('app', 'Новоый раздел успешно добавлен.'));
+
+            return $this->redirect(Url::to(['/activity-fields/config-fields', 'id' => $section_model->activity_id]));
+        }
+
+        return $this->render('index', ['activity' => $this->getActivity(), 'model' => $model, 'section_model' => $section_model]);
     }
 
     public function actionConfigCalcFields() {
@@ -104,12 +122,21 @@ class ActivityFieldsController extends PageController
         return ActivityExtendedStatisticFields::saveData(\Yii::$app->request->post());
     }
 
+    public function actionSaveSectionData() {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return ActivityExtendedStatisticSections::saveData(\Yii::$app->request->post());
+    }
+
     public function actionSaveCalcFields() {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return ActivityExtendedStatisticFields::saveCalcFieldsData(\Yii::$app->request->post());
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionDeleteField() {
         $field = $this->getField();
         if (!$field) {
@@ -122,6 +149,23 @@ class ActivityFieldsController extends PageController
         \Yii::$app->session->setFlash('success', Yii::t('app', 'Поле успешно удалено.'));
 
         return $this->redirect(Url::to(['activity-fields/config-fields', 'id' => $field->activity_id]));
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionDeleteSection($id) {
+        $section = ActivityExtendedStatisticSections::findOne(['id' => $id]);
+        if (!$section) {
+            \Yii::$app->session->setFlash('error', Yii::t('app', 'Раздел не найден.'));
+
+            return $this->refresh();
+        }
+
+        ActivityExtendedStatisticSections::deleteAll(['id' => $section->id]);
+        \Yii::$app->session->setFlash('success', Yii::t('app', 'Раздел успешно удален.'));
+
+        return $this->redirect(Url::to(['activity-fields/config-fields', 'id' => $section->activity_id]));
     }
 
     public function actionSortFields() {

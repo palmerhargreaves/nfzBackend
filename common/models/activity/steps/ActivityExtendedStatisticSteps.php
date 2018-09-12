@@ -31,7 +31,7 @@ class ActivityExtendedStatisticSteps extends \yii\db\ActiveRecord
     {
         return [
             [['action_after', 'activity_id'], 'integer'],
-            [['activity_id', 'header'], 'required'],
+            [['activity_id', 'header', 'action_after'], 'required'],
             [['step_type'], 'string'],
             [['header', 'description'], 'string', 'max' => 255],
         ];

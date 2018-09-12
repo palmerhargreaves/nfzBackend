@@ -108,6 +108,17 @@ use yii\helpers\Url;
 
                             </div>
                         <?php endforeach; ?>
+
+                        <div class="chat-out-list row">
+                            <div class="col s12" style="font-size: 0.8rem; margin-top: 10px;">
+                                <input name="activity-extended-statistic" type="checkbox"
+                                    id="activity-extended-statistic" <?php echo $activity->allow_extended_statistic ? "checked" : ""; ?>
+                                    data-id="<?php echo $activity->id; ?>"
+                                    data-field="allow_extended_statistic"
+                                    data-url="<?php echo \yii\helpers\Url::to(['activity/save-params']); ?>">
+                                <label for="activity-extended-statistic">Service Clinic</label>
+                            </div>
+                        </div>
                     </form>
                 </div>
 

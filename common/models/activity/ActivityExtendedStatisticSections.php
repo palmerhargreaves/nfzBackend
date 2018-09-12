@@ -29,7 +29,7 @@ class ActivityExtendedStatisticSections extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['header', 'parent_id', 'activity_id'], 'required'],
+            [['header', 'activity_id'], 'required'],
             [['parent_id', 'status', 'activity_id', 'position'], 'integer'],
             [['header'], 'string', 'max' => 255],
         ];
@@ -42,9 +42,9 @@ class ActivityExtendedStatisticSections extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'header' => 'Header',
-            'parent_id' => 'Parent ID',
-            'status' => 'Status',
+            'header' => 'Название раздела',
+            'parent_id' => 'Основной раздел',
+            'status' => 'Статус',
             'activity_id' => 'ActivityController ID',
         ];
     }
@@ -65,5 +65,24 @@ class ActivityExtendedStatisticSections extends \yii\db\ActiveRecord
         }
 
         return [ $position > 1 ? true : false ];
+    }
+
+    /**
+     * @param $postData
+     * @return array
+     */
+    public static function saveData ( $postData )
+    {
+        $field = self::find()->where([ 'id' => $postData[ 'field_id' ] ])->one();
+        if (!$field) {
+            return [ 'success' => false, 'msg' => Yii::t('app', 'Ошибка при сохранении раздела.') ];
+        }
+
+        foreach ($postData[ 'data' ] as $ind => $data) {
+            $field->{$data[ 'field' ]} = $data[ 'value' ];
+        }
+        $field->save(false);
+
+        return [ 'success' => true, 'msg' => Yii::t('app', 'Данные успешно сохранены.') ];
     }
 }

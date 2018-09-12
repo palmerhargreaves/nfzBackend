@@ -15,12 +15,11 @@ use yii\helpers\ArrayHelper;
     <div class="divider"></div>
 
     <div id="card-stats" class="section">
-
         <div class="row">
             <div class="col s12 m6 l12">
-                <h4 class="header">Добавление шага</h4>
+                <h4 class="header"><?php echo $model->isNewRecord ? "Добавление шага" : "Редактирование"; ?></h4>
                 <div class="card-panel">
-                    <h4 class="header2">Новый шаг</h4>
+                    <h4 class="header2"><?php echo $model->isNewRecord ? "Новый шаг" : $model->header; ?></h4>
                     <div class="row">
                         <?php $form = ActiveForm::begin(['id' => 'form', 'fieldConfig' => [
                             'template' => '{input}{error}'

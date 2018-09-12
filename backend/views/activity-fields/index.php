@@ -8,7 +8,6 @@
 
 use common\models\activity\fields\ActivityExtendedStatisticFields;
 use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
 use yii\helpers\Url;
 
 ?>
@@ -25,7 +24,7 @@ use yii\helpers\Url;
                     <div class="card">
                         <div class="col s12 m8 l12">
                             <table id="mainTable" data-activity-id="<?php echo $activity->id; ?>"
-                                   data-url="<?php echo Url::to([ 'activity-fields/sort-sections' ]); ?>"
+                                   data-url="<?php echo Url::to(['activity-fields/sort-sections']); ?>"
                                    class="table-responsive sortable-sections-table sortable-sections-list">
                                 <thead>
                                 <tr>
@@ -39,10 +38,10 @@ use yii\helpers\Url;
                                 <tbody class="">
 
                                 <?php $sections_total = 0; ?>
-                                <?php foreach (\common\models\activity\ActivityExtendedStatisticSections::find()->where([ 'activity_id' => $activity->id ])->orderBy([ 'position' => SORT_ASC ])->all() as $section): ?>
+                                <?php foreach (\common\models\activity\ActivityExtendedStatisticSections::find()->where(['activity_id' => $activity->id])->orderBy(['position' => SORT_ASC])->all() as $section): ?>
                                     <tr class="sortable-list-items"
                                         data-id="<?php echo $section->id; ?>"
-                                        data-url="<?php echo Url::to([ "activity-fields/save-section-data" ]); ?>">
+                                        data-url="<?php echo Url::to(["activity-fields/save-section-data"]); ?>">
                                         <td class="sortable-item ">
                                             <i class="mdi-hardware-gamepad handle"></td>
                                         <td style="width: 35%;">
@@ -53,8 +52,8 @@ use yii\helpers\Url;
 
                                         </td>
                                         <td style="text-align: center;">
-                                            <input type="checkbox" class="field-item checkbox"
-                                                   data-field="required"
+                                            <input type="checkbox" class="section-item checkbox"
+                                                   data-field="status"
                                                    id="ch-section-status-<?php echo $section->id; ?>" <?php echo $section->status ? "checked" : ""; ?> >
                                             <label for="ch-section-status-<?php echo $section->id; ?>"
                                                    style="text-decoration: none;" class="tooltipped"
@@ -72,7 +71,7 @@ use yii\helpers\Url;
                                                 <a class="btn-floating btn-flat waves-effect waves-light red accent-2 white-text left tooltipped"
                                                    data-position="top" data-delay="50"
                                                    data-tooltip="<?php echo Yii::t('app', 'Удаление раздела'); ?>"
-                                                   href="<?php echo Url::to([ 'activity-fields/delete-section', 'id' => $section->id ]); ?>"><i
+                                                   href="<?php echo Url::to(['activity-fields/delete-section', 'id' => $section->id]); ?>"><i
                                                             class="mdi-action-highlight-remove"></i></a>
                                             </div>
                                         </td>
@@ -123,7 +122,7 @@ use yii\helpers\Url;
                                     <div class="card">
                                         <div class="col s12 m8 l12">
                                             <table id="mainTable"
-                                                   data-url="<?php echo Url::to([ 'activity-fields/sort-fields' ]); ?>"
+                                                   data-url="<?php echo Url::to(['activity-fields/sort-fields']); ?>"
                                                    data-section-id="<?php echo $section->id; ?>"
                                                    class="table-responsive sortable-fields-table sortable-list-<?php echo $section->id; ?>">
                                                 <thead>
@@ -139,10 +138,10 @@ use yii\helpers\Url;
                                                 </thead>
                                                 <tbody class="">
                                                 <?php $sections_total_fields = 0; ?>
-                                                <?php foreach (ActivityExtendedStatisticFields::find()->where([ 'parent_id' => $section->id ])->orderBy([ 'position' => SORT_ASC ])->all() as $field): ?>
+                                                <?php foreach (ActivityExtendedStatisticFields::find()->where(['parent_id' => $section->id])->orderBy(['position' => SORT_ASC])->all() as $field): ?>
                                                     <tr class="sortable-list-items"
                                                         data-id="<?php echo $field->id; ?>"
-                                                        data-url="<?php echo Url::to([ "activity-fields/save-data" ]); ?>">
+                                                        data-url="<?php echo Url::to(["activity-fields/save-data"]); ?>">
                                                         <td class="sortable-item ">
                                                             <i class="mdi-hardware-gamepad handle"></td>
                                                         <td style="width: 35%;">
@@ -164,7 +163,7 @@ use yii\helpers\Url;
                                                         <td style="width: 20%;">
                                                             <select class="field-item" data-field="step_id">
                                                                 <option value="">Нет</option>
-                                                                <?php foreach (\common\models\activity\steps\ActivityExtendedStatisticSteps::find()->where([ 'activity_id' => $activity->id ])->orderBy([ 'position' => SORT_ASC ])->all() as $step): ?>
+                                                                <?php foreach (\common\models\activity\steps\ActivityExtendedStatisticSteps::find()->where(['activity_id' => $activity->id])->orderBy(['position' => SORT_ASC])->all() as $step): ?>
                                                                     <option value="<?php echo $step->id; ?>" <?php echo $step->id == $field->step_id ? "selected" : ""; ?>><?php echo $step->header; ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -184,7 +183,7 @@ use yii\helpers\Url;
                                                                    data-position="top"
                                                                    data-delay="50"
                                                                    data-tooltip="<?php echo Yii::t('app', 'Настройка вычисляемых полей'); ?>"
-                                                                   data-href="<?php echo Url::to([ '/activity-fields/config-calc-fields', 'id' => $field->id ]); ?>"
+                                                                   data-href="<?php echo Url::to(['/activity-fields/config-calc-fields', 'id' => $field->id]); ?>"
                                                                    href="#modal-field-calc-config"
                                                                    style="margin-right: 7px; display:<?php echo $field->isCalc() ? "block" : "none"; ?>">
                                                                     <i class="mdi-action-settings"></i>
@@ -199,7 +198,7 @@ use yii\helpers\Url;
                                                                 <a class="btn-floating btn-flat waves-effect waves-light red accent-2 white-text left tooltipped"
                                                                    data-position="top" data-delay="50"
                                                                    data-tooltip="<?php echo Yii::t('app', 'Удаление поля'); ?>"
-                                                                   href="<?php echo Url::to([ 'activity-fields/delete-field', 'id' => $field->id ]); ?>"><i
+                                                                   href="<?php echo Url::to(['activity-fields/delete-field', 'id' => $field->id]); ?>"><i
                                                                             class="mdi-action-highlight-remove"></i></a>
                                                             </div>
                                                         </td>
@@ -243,13 +242,25 @@ use yii\helpers\Url;
                     <i class="mdi-action-stars"></i>
                 </a>
                 <ul>
+                    <?php if (\common\models\activity\fields\ActivityExtendedStatisticSections::find()->where(['activity_id' => $activity->id])->count()): ?>
                     <li>
                         <a href="#modal-field-add"
                            class="btn-floating green modal-trigger tooltipped"
-                           data-position="top"
+                           data-position="left"
                            data-delay="50"
                            data-tooltip="<?php echo Yii::t('app', 'Добавление нового поля'); ?>">
                             <i class="small mdi-content-add"></i>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <li>
+                        <a href="#modal-section-add"
+                           class="btn-floating green modal-trigger tooltipped"
+                           data-position="left"
+                           data-delay="50"
+                           data-tooltip="<?php echo Yii::t('app', 'Добавление нового раздела'); ?>">
+                            <i class="small mdi-av-my-library-add"></i>
                         </a>
                     </li>
                 </ul>
@@ -265,9 +276,9 @@ use yii\helpers\Url;
 
 
     <div id="modal-field-add" class="modal">
-        <?php $form = ActiveForm::begin([ 'id' => 'form-new-field-add', 'fieldConfig' => [
+        <?php $form = ActiveForm::begin(['id' => 'form-new-field-add', 'fieldConfig' => [
             'template' => '{input}{error}'
-        ], 'options' => [ 'class' => 'col s12' ] ]); ?>
+        ], 'options' => ['class' => 'col s12']]); ?>
 
         <div class="modal-content">
             <nav class="red">
@@ -295,14 +306,19 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="row">
                     <div class="input-field col s12">
-                        <?php echo $form->field($model, 'header')->textInput([ 'class' => '', 'placeholder' => 'Название', 'disabled' => false ]); ?>
+                        <?php echo $form->field($model, 'header')->textInput(['class' => '', 'placeholder' => 'Название', 'disabled' => false]); ?>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <?php echo $form->field($model, 'parent_id')
-                            ->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\activity\fields\ActivityExtendedStatisticSections::find()->where([ 'activity_id' => $activity->id ])->orderBy([ 'id' => SORT_DESC ])->all(), 'id', 'header')); ?>
+                        <?php
+                            echo $form->field($model, 'parent_id')
+                                ->dropDownList(\yii\helpers\ArrayHelper::map(
+                                    \common\models\activity\fields\ActivityExtendedStatisticSections::find()->where(['activity_id' => $activity->id])->orderBy(['id' => SORT_DESC])->all()
+                                    ,
+                                    'id', 'header'));
+                            ?>
                     </div>
                 </div>
 
@@ -315,7 +331,7 @@ use yii\helpers\Url;
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <?php echo $form->field($model, 'description')->textInput([ 'class' => '', 'placeholder' => 'Краткое описание', 'disabled' => false ]); ?>
+                        <?php echo $form->field($model, 'description')->textInput(['class' => '', 'placeholder' => 'Краткое описание', 'disabled' => false]); ?>
                     </div>
                 </div>
 
@@ -326,7 +342,66 @@ use yii\helpers\Url;
                     </div>
                 </div>
 
-                <?php echo $form->field($model, 'activity_id')->hiddenInput([ 'value' => $activity->id ])->label(false); ?>
+                <?php echo $form->field($model, 'activity_id')->hiddenInput(['value' => $activity->id])->label(false); ?>
+
+            </div>
+        </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+
+    <div id="modal-section-add" class="modal" style="min-height: 500px;">
+        <?php $form = ActiveForm::begin(['id' => 'form-new-section-add', 'fieldConfig' => [
+            'template' => '{input}{error}'
+        ], 'options' => ['class' => 'col s12']]); ?>
+
+        <div class="modal-content">
+            <nav class="red">
+                <div class="nav-wrapper">
+                    <div class="left col s12 m5 l5">
+                        <ul>
+                            <li>
+                                <a href="#!" class="email-menu">
+                                    <i class="modal-action modal-close  mdi-hardware-keyboard-backspace"></i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col s12 m7 l7 hide-on-med-and-down">
+                        <ul class="right">
+                            <li><a href="#!" class="js-add-new-section email-type">Добавить</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <div class="model-email-content" style="padding-top: 0px;">
+            <div class="row">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <?php echo $form->field($section_model, 'header')->textInput(['class' => '', 'placeholder' => 'Название', 'disabled' => false]); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <?php echo $form->field($model, 'parent_id')
+                            ->dropDownList(\yii\helpers\ArrayHelper::map(
+                                array_merge(
+                                    [
+                                        [
+                                            'id' => 0,
+                                            'header' => 'Базовый раздел'
+                                        ]
+                                    ],
+                                    \common\models\activity\fields\ActivityExtendedStatisticSections::find()->where(['activity_id' => $activity->id])->orderBy(['id' => SORT_DESC])->all()
+                                    ),
+                                'id', 'header')); ?>
+                    </div>
+                </div>
+
+                <?php echo $form->field($section_model, 'activity_id')->hiddenInput(['value' => $activity->id])->label(false); ?>
 
             </div>
         </div>
@@ -334,161 +409,6 @@ use yii\helpers\Url;
     </div>
 
 <?php echo $this->registerJs('
-    $(document).on("click", ".modal-trigger", function(event) {
-        var element = $(event.target).parent();
-        
-        $.post(element.data("href"), {}, function(result) {
-            $(".modal-content").html(result.content);
-            
-            $("#checked-calc-field").nestable({
-                group: 1
-            });
-        });
-    }); 
-    
-    $(document).on("click", ".js-add-new-field", function(event) {
-        $("#form-new-field-add").submit();
-    });
-    
-    $(document).on("input", ".field-item", function(event) {
-        onFieldDataChanged($(event.target));
-    });
-    
-    $(document).on("change", ".field-item", function(event) {
-        onFieldDataChanged($(event.target));
-    });
-    
-    $(document).on("click", ".js-btn-save-field", function(event) {
-        var element = $(event.target).parent(), parent = element.closest("tr"), url = parent.data("url"), data = [];
-        
-        parent.find("input,select").each(function(index, item) {
-            if ($(item).hasClass("checkbox")) {
-                data.push({
-                    field : $(item).data("field"),
-                    value : $(item).is(":checked") ? 1 : 0
-                });
-            } else if ($(item).data("field") != undefined) {
-                data.push({
-                    field : $(item).data("field"),
-                    value : $(item).val()
-                });
-            }
-        });
-        
-        $.post(url, {
-            data: data,
-            field_id: parent.data("id")
-        }, function(result) {
-            Materialize.toast(result.msg, 2500);
-        });
-        
-        element.fadeOut();
-    });
-    
-    function onFieldDataChanged(element) {
-        var parent = element.closest("tr");
-        
-        $(".btn-save-field" + parent.data("id")).fadeIn();
-    }
-    
-    ////
-    var check_fields_list = [];
-    
-    $(document).on("click", "#js-save-calc-value", function(event) {
-        var element = $(event.target).parent(), items = [];
-
-        $("#checked-calc-field .dd-item").each(function(ind, item) {
-            items.push({
-                id: $(item).data("id")
-            });
-        });
-        
-        if (items.length < 2) {
-            Materialize.toast("Для продолжения необходимо выбрать поля.", 2500);
-            return;
-        }
-        
-        $.post(element.data("url"), {
-            data: items,
-            field_id: element.data("id"),
-            calc_type: $("#field-calc-type").val()
-        }, function(result) {
-            Materialize.toast(result.msg, 2500);
-        });            
-    });    
-    
-    $(document).on("change", ".ch-calc-field", function(event) {
-        var checked_calc_fields = getCalcCheckedFields(), element = $(event.target);
-
-        if (element.is(":checked")) {       
-            $("#checked-calc-field").append("<li class=\'dd-item\' data-id=\'" + element.data("id") + "\'><div class=\'dd-handle\'>" + element.data("name") + "</div></li>");
-        } else {
-            $("li[data-id=\'" + element.data("id") + "\']").remove();
-        }     
-        
-        checked_calc_fields.length >= 2 ? $("#js-save-calc-value").fadeIn() : $("#js-save-calc-value").fadeOut();
-        
-    });
-    
-    function getCalcCheckedFields() {
-        var calc_checked_fields = [];
-         
-        $(".ch-calc-field").each(function(ind, item) {
-            if ($(item).is(":checked")) {
-                calc_checked_fields.push({
-                    id: $(item).data("id")
-                });
-            }
-        });
-        
-        return calc_checked_fields;
-    }
-    
-    $(document).on("click", ".collapsible-header", function(event) {
-        var table = $(event.target).data("id") != undefined ? $(event.target) : $(event.target).parent();
-        
-        if (!table.hasClass("has-sort")) {
-            var dragger = tableDragger(document.querySelector(".sortable-list-" + table.data("id")), {
-                mode: "row",
-            });
-           
-            dragger.on("drop", function(from, to, el) {
-                var table = $(el), fields = [];
-                
-                table.find("tbody > tr").each(function(ind, item) {
-                    fields.push($(item).data("id"));
-                });
-                
-                $.post(table.data("url"), {
-                    section: table.data("section-id"),
-                    fields: fields
-                }, function(result) {
-                    Materialize.toast("Сортировка выполнена успешно.", 2500);
-                });
-            });
-            
-            table.addClass("has-sort");
-        }        
-    });
-    
-    var dragger = tableDragger(document.querySelector(".sortable-sections-list"), {
-        mode: "row",
-    });
-    
-    dragger.on("drop", function(from, to, el) {
-        var table = $(el), sections = [];
-        
-        table.find("tbody > tr").each(function(ind, item) {
-            sections.push($(item).data("id"));
-        });
-        
-        $.post(table.data("url"), {
-            activity: table.data("activity-id"),
-            sections: sections
-        }, function(result) {
-            Materialize.toast("Сортировка выполнена успешно.", 2500);
-        });
-    });
-    
+    new StatisticBySections({}).start();
     
 ', \yii\web\View::POS_READY);

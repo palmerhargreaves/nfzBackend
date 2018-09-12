@@ -161,4 +161,20 @@ class Activity extends CustomRecord
     public function getActivityVideoStatistic() {
         return ActivityVideoRecordsStatistics::find()->where(['activity_id' => $this->id])->one();
     }
+
+    /**
+     * Параметры активности
+     * @return bool
+     */
+    public static function saveParams() {
+        $activity = self::findOne(['id' => Yii::$app->request->post('id')]);
+
+        if ($activity) {
+            $activity->{Yii::$app->request->post('field')} = Yii::$app->request->post('value');
+
+            return $activity->save(false);
+        }
+
+        return false;
+    }
 }

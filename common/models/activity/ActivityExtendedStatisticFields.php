@@ -33,7 +33,7 @@ class ActivityExtendedStatisticFields extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['header', 'activity_id', 'description'], 'required'],
+            [['header', 'parent_id', 'activity_id', 'description'], 'required'],
             [['value_type'], 'string'],
             [['activity_id', 'parent_id', 'status', 'position', 'required'], 'integer'],
             [['header', 'description'], 'string', 'max' => 255],

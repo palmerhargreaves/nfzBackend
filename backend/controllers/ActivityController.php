@@ -58,7 +58,8 @@ class ActivityController extends PageController
                             'pre-check-user-statistic',
                             'config-special-agreement',
                             'special-agreement-user',
-                            'allow-deny-special-agreement'
+                            'allow-deny-special-agreement',
+                            'save-params'
                         ],
                         'allow' => true,
                         'roles' => [ '@' ],
@@ -255,5 +256,11 @@ class ActivityController extends PageController
         $activity->save(false);
 
         return ['success' => true];
+    }
+
+    public function actionSaveParams() {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return [ 'success' => Activity::saveParams() ];
     }
 }
