@@ -36,7 +36,7 @@ if ($field): ?>
                 <p>Переместите поля для корректного вычисления создаваемого выражения</p>
                 <div class="dd" id="checked-calc-field">
                     <?php foreach ($field->getCalcFields() as $calc_field): ?>
-                        <li class='dd-item' data-id='<?php echo $calc_field->id; ?>'><div class='dd-handle'><?php echo $calc_field->getCalcFieldName(); ?></div></li>
+                        <li class='dd-item' data-id='<?php echo $calc_field->calc_field; ?>'><div class='dd-handle'><?php echo $calc_field->getCalcFieldName(); ?></div></li>
                     <?php endforeach; ?>
                 </div>
             </div>

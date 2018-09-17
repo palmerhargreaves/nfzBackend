@@ -54,13 +54,15 @@ StatisticBySections.prototype = {
     },
 
     onLoadModalContent: function(event) {
-        var element = $(event.currentTarget).parent();
+        var element = $(event.currentTarget);
 
-        //$.post(element.data("href"), {}, $.proxy(this.onLoadModalContentResult, this));
+        if (element.data("href") != undefined) {
+            $.post(element.data("href"), {}, $.proxy(this.onLoadModalContentResult, this));
+        }
     },
 
     onLoadModalContentResult: function(result) {
-        $(".modal-content").html(result.content);
+        result.parent_container != undefined ? $(".modal-content", $(result.parent_container)).html(result.content) : $(".modal-content").html(result.content);
 
         $("#checked-calc-field").nestable({
             group: 1
@@ -117,7 +119,7 @@ StatisticBySections.prototype = {
     },
 
     onSaveCalculatedFieldData: function(event) {
-        var element = $(event.currentTarget).parent(), items = [];
+        var element = $(event.currentTarget), items = [];
 
         $("#checked-calc-field .dd-item").each(function(ind, item) {
             items.push({
@@ -140,7 +142,7 @@ StatisticBySections.prototype = {
     },
 
     onCalculatedFieldChanged: function(event) {
-        var checked_calc_fields = this.getCalcCheckedFields(), element = $(event.target);
+        var checked_calc_fields = this.getCalcCheckedFields(), element = $(event.currentTarget);
 
         if (element.is(":checked")) {
             $("#checked-calc-field").append("<li class='dd-item' data-id='" + element.data("id") + "'><div class='dd-handle'>" + element.data("name") + "</div></li>");

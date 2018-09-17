@@ -269,7 +269,7 @@ use yii\helpers\Url;
         </div>
     </div>
 
-    <div id="modal-field-calc-config" class="modal bottom-sheet" style="max-height: 60%;">
+    <div id="modal-field-calc-config" class="modal bottom-sheet" style="max-height: 80%;">
         <div class="modal-content">
         </div>
     </div>

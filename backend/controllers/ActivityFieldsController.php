@@ -112,7 +112,8 @@ class ActivityFieldsController extends PageController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return [
-            'content' => $this->renderPartial('partials/_field_config_calc_values', [ 'field' => $this->getField()])
+            'content' => $this->renderPartial('partials/_field_config_calc_values', [ 'field' => $this->getField()]),
+            'parent_container' => '#modal-field-calc-config'
         ];
     }
 
