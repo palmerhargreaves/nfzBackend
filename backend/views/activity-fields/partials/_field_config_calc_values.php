@@ -9,8 +9,10 @@
 use common\models\activity\fields\ActivityExtendedStatisticFields;
 
 if ($field): ?>
-    <h4 class="header">Настройка вычисляемого поля</h4>
 
+    <?php $calc_fields_list = $field->getCalcFields(); ?>
+
+    <h4 class="header">Настройка вычисляемого поля</h4>
     <select id="field-calc-type" name="field-calc-type" style="display: block;">
         <?php foreach (ActivityExtendedStatisticFields::getTypes() as $key => $type): ?>
             <option value="<?php echo $key; ?>" <?php echo $field->isCalcField() && $field->getCalcType() == $key ? "selected" : ""; ?>><?php echo $type; ?></option>
@@ -35,8 +37,10 @@ if ($field): ?>
 
                 <p>Переместите поля для корректного вычисления создаваемого выражения</p>
                 <div class="dd" id="checked-calc-field">
-                    <?php foreach ($field->getCalcFields() as $calc_field): ?>
-                        <li class='dd-item' data-id='<?php echo $calc_field->calc_field; ?>'><div class='dd-handle'><?php echo $calc_field->getCalcFieldName(); ?></div></li>
+                    <?php foreach ($calc_fields_list as $calc_field): ?>
+                        <li class='dd-item' data-id='<?php echo $calc_field->calc_field; ?>'>
+                            <div class='dd-handle'><?php echo $calc_field->getCalcFieldName(); ?></div>
+                        </li>
                     <?php endforeach; ?>
                 </div>
             </div>

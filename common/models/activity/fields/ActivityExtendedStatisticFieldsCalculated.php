@@ -49,9 +49,17 @@ class ActivityExtendedStatisticFieldsCalculated extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getCalcFieldName() {
         $field = ActivityExtendedStatisticFields::find()->where(['id' => $this->calc_field])->one();
         if ($field) {
+            $section = ActivityExtendedStatisticSections::findOne(['id' => $field->parent_id]);
+            if ($section) {
+                return sprintf('%s [%s]', $field->header, $section->header);
+            }
+
             return $field->header;
         }
 
