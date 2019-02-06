@@ -25,6 +25,13 @@ class D {
 
     private static $_calendar_dates = array();
 
+    static function getMonthName($month_index)
+    {
+        $months = array("Янв.", "Фев.", "Мар.", "Апр.", "Май", "Июнь", "Июль", "Авг.", "Сен.", "Окт.", "Ноя.", "Дек.");
+
+        return $months[$month_index - 1];
+    }
+
     public static function toUnix($date)
     {
         return is_numeric($date) ? intval($date) : strtotime($date);
@@ -247,5 +254,17 @@ class D {
         }
 
         return $days;
+    }
+
+    static function getQuarterMonths($q) {
+        $q_months = array
+        (
+            1 => array(1, 2, 3),
+            2 => array(4, 5, 6),
+            3 => array(7, 8, 9),
+            4 => array(10, 11, 12)
+        );
+
+        return $q_months[$q];
     }
 }

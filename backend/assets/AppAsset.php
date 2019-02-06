@@ -65,6 +65,8 @@ class AppAsset extends AssetBundle
         "assets/materialize/js/plugins/floatThead/jquery.floatThead-slim.min.js",
 
         "assets/js/app/statistic/statistic_by_sections.js",
+
+        "assets/js/app/models/completed_count.js",
     ];
 
     public $depends = [

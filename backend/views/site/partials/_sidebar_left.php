@@ -59,6 +59,17 @@ $isActiveMenu = function($parent) {
                     </div>
                 </li>
 
+                <li class="bold <?php echo $isActiveMenu('models') ? "active" : ""; ?>">
+                    <a class="collapsible-header waves-effect waves-cyan <?php echo $isActiveMenu('models') ? "active" : ""; ?>">
+                        <i class="mdi-action-view-carousel"></i> Заявки
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li class="<?php echo $isActiveMenu('/models/completed-calculate-count') ? "active" : ""; ?>"><a href="<?php echo Url::to(['/models/completed-calculate-count']); ?>">Подсчет заявок</a></li>
+                        </ul>
+                    </div>
+                </li>
+
                 <!--<li class="bold active">
                     <a class="collapsible-header waves-effect waves-cyan">
                         <i class="mdi-action-view-carousel"></i> Статистика
